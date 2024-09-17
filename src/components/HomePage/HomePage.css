@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+  
+body {
+    background-color: #e8d9f5; 
+}
+
+.homepage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: #e0c3fc;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav span {
+    margin-left: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.main-content{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.booking-section {
+    background-color: white;
+    padding: 20px;
+    width: 65%;
+    border-radius: 10px;
+}
+
+.booking-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.booking-header h2{
+    font-size: 24px;
+}
+
+.trip-options{
+    display: flex;
+    /* justify-content: flex-end;
+    gap: 0;
+    overflow: hidden; */
+}
+
+.trip-options button {
+    background-color: purple;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    flex: 1;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.trip-options.round-trip{
+    background-color: purple;
+    color: white;
+
+}
+ 
+
+.trip-options.one-way{
+    background-color: lightgray;
+    color: gray;
+}
+
+.trip-options.active{
+    background-color: #4e2a8e;
+}
+
+.flight-search {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.flight-search input {
+    width: 20%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-button{
+  background-color: purple;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: inline-block;
+
+}
+
+.flight-info{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.flight-cards{
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 60%;
+}
+
+.flight-card{
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.book-button {
+    background-color: purple;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.sort-section{
+    /* display: inline-block; */
+    width: 35%;
+    padding-left: 20px;
+    /* vertical-align: top; */
+}
+.sort-section label {
+    font-weight: bold;
+}
+
+.sort-section select{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.aside-section{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+.aside-card{
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.aside-card img{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.aside-card span {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
