@@ -10,8 +10,10 @@ const FlightSearch = () => {
       try {
         const response = await axios.get('https://api.schiphol.nl/public-flights/flights?includedelays=false&page=0&sort=%2BscheduleTime', {
           headers: {
-            'API_ID': '0bb7716e',
-            'API_KEY': '786d027da17d7a8eeb9b71883e6a2fa8'
+            Accept: "application/json",
+            app_id: '0bb7716e',
+            app_key: '786d027da17d7a8eeb9b71883e6a2fa8',
+            ResourceVersion: "v4"
           }
         });
         setFlights(response.data);
