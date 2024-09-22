@@ -1,48 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './FlightSearch.css';
+import axios from 'axios';
 
 const FlightSearch = () => {
+  const [flights, setFlights] = useState([]);
 
-  const flights = [
-    {
-      time: "7:40 AM – 9:12 AM",
-      airline: "Delta Air Lines",
-      duration: "1h 32m",
-      flightNo: "DL 1443",
-      main: "$156",
-      comfort: "$204",
-      premium: "$386",
-      route: "SFO to LAX"
-    },
-    {
-      time: "7:00 AM – 8:52 AM",
-      airline: "American Airlines",
-      duration: "1h 52m",
-      flightNo: "AA 166",
-      main: "$182",
-      premium: "$400",
-      route: "SFO to LAX"
-    },
-    {
-      time: "8:15 AM – 9:50 AM",
-      airline: "Southwest Airlines",
-      duration: "1h 35m",
-      flightNo: "WN 2234",
-      main: "$225",
-      comfort: "$253",
-      route: "SFO to LAX"
-    },
-    {
-      time: "8:00 AM – 9:46 AM",
-      airline: "United",
-      duration: "1h 46m",
-      flightNo: "UA 613",
-      main: "$183",
-      comfort: "$449",
-      premium: "$407",
-      route: "SFO to LAX"
-    },
-  ];
+  useEffect(() => {
+    const fetchFlights = async () => {
+      try {
+        const response = await axios.get('https://api.schiphol.nl/public-flights/flights?includedelays=false&page=0&sort=%2BscheduleTime', {
+          headers: {
+            'API_ID': '0bb7716e',
+            'API_KEY': '786d027da17d7a8eeb9b71883e6a2fa8'
+          }
+        });
+        setFlights(response.data);
+      } catch (error){
+        console.error('Uçuş verileri alınırken hata oluştu.', error)
+      }
+    };
+
+    fetchFlights();
+  }, []);
   
   return (
     <div className='flight-search'>
