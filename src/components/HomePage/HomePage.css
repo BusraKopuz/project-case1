@@ -59,52 +59,78 @@ body {
     font-size: 24px;
 }
 
-.trip-options{
+.trip-options {
     display: flex;
-    /* justify-content: flex-end;
-    gap: 0;
-    overflow: hidden; */
 }
 
 .trip-options button {
-    background-color: #491289;
-    color: white;
+    background-color: lightgray;
+    color: #491289;
     border: none;
     outline: none;
     font-size: 16px;
-    flex: 1;
     padding: 10px 20px;
     cursor: pointer;
-    margin-left: 10px;
+    flex: 1;
+    margin: 0; 
+    border-radius: 50px; 
+    transition: background-color 0.3s ease;
 }
 
-.trip-options.round-trip{
+.trip-options button:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0; 
+}
+
+.trip-options button:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0; 
+}
+
+.trip-options button.active {
     background-color: #491289;
     color: white;
-
-}
- 
-
-.trip-options.one-way{
-    background-color: lightgray;
-    color: #E6DAFE;
 }
 
-.trip-options.active{
-    background-color: #491289;
+.trip-options button:hover {
+    background-color: #7041b9;
+    color: white;
 }
 
 .flight-search {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    gap: 10px; /* Inputlar arasındaki açıklık */
+    width: 100%;
 }
 
 .flight-search input {
-    width: 20%;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
     border: 1px solid #ccc;
+    outline: none;
+    flex: 1; /* Tüm inputlar eşit genişlikte olacak */
+    box-sizing: border-box;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+/* İlk inputun (city) sol köşeleri oval */
+.flight-search input:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+/* Son inputun (return date veya departure date) sağ köşeleri oval */
+.flight-search input:last-child {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+/* Hover ve Focus durumları */
+.flight-search input:hover, 
+.flight-search input:focus {
+    border-color: #491289; /* Hover/focus durumunda kenar rengi */
 }
 
 .search-button{

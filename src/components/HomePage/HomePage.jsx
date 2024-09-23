@@ -15,6 +15,7 @@ const HomePage = () => {
         returnDate: "",
     });
     const [loading, setLoading] = useState(false);
+    const [tripType, setTripType] = useState('round-trip'); // Gidiş-dönüş veya tek yön seçeneği
 
     const fetchFlights = () => {
         setLoading(true);
@@ -36,24 +37,55 @@ const HomePage = () => {
     }, []);
 
     const handleSearch = () => {
+        console.log("Butona tıklandı!");
+        console.log("Parametreler", searchParams);
+
         setLoading(true);
         FlightService.getFlightService()
             .then(response => {
+                console.log("API Yanıtı:", response.data);
                 const flightData = response.data.flights || [];
-                console.log("Tüm Uçuş Verileri:", flightData); // Tüm verileri yazdır
+                console.log("Tüm Uçuş Verileri:", flightData);
     
+                // Tarih aralığını tanımla
+                const startDate = new Date(searchParams.departureDate);
+                const endDate = new Date(searchParams.returnDate || searchParams.departureDate);
+
+                console.log("Filtreleme için Tarih Aralığı:", startDate, " - ", endDate);
+
+                // Kalkış ve varış ülkelerini tanımla
+                const departureCountry = searchParams.city;
+                const arrivalCountry = searchParams.to;
+
+                console.log("Kalkış Ülkesi:", departureCountry);
+                console.log("Varış Ülkesi:", arrivalCountry);
+
+                // Tarih aralığında ve ülkelerde kalan uçuşları filtrele
                 const filteredFlights = flightData.filter(flight => {
-                    const departureDateMatch = flight.scheduleDate === searchParams.departureDate;
-                    const destinationMatch = flight.route.destinations.some(destination =>
-                        destination.toLowerCase() === searchParams.to.toLowerCase()
-                    );
-    
-                    console.log(`Uçuş: ${flight.flightName}, Tarih Eşleşmesi: ${departureDateMatch}, Varış Eşleşmesi: ${destinationMatch}`); // Her uçuş için eşleşmeleri yazdır
-    
-                    return departureDateMatch && destinationMatch;
+                    const scheduleDate = new Date(flight.scheduleDate);
+                    const destination = flight.route.destinations[0];
+
+                    console.log("Kontrol Edilen Uçuş:", flight);
+                    console.log("Schedule Date:", scheduleDate);
+                    console.log("Departure Country:", departureCountry);
+                    console.log("Arrival Country:", arrivalCountry);
+                    console.log("Destination:", destination);
+                
+                    const inDateRange = scheduleDate >= startDate && scheduleDate <= endDate;
+                    const matchesDeparture = flight.prefixIATA.toLowerCase() === departureCountry.toLowerCase();
+                    const matchesDestination = destination.toLowerCase() === arrivalCountry.toLowerCase();
+
+                    console.log("Filtreleme Sonucu:", {
+                        scheduleDate,
+                        inDateRange,
+                        matchesDeparture,
+                        matchesDestination,
+                    });
+
+                    return inDateRange && matchesDeparture && matchesDestination;
                 });
-    
-                console.log("Filtrelenmiş Uçuşlar:", filteredFlights); // Filtrelenmiş uçuşları yazdır
+
+                console.log("Filtrelenmiş Uçuşlar:", filteredFlights);
                 setFlights(filteredFlights);
             })
             .catch(error => {
@@ -63,8 +95,7 @@ const HomePage = () => {
                 setLoading(false);
             });
     };
-    
-        
+
     const handleSaveFlight = (flight) => {
         const savedFlights = JSON.parse(localStorage.getItem('savedFlights')) || [];
         savedFlights.push(flight);
@@ -92,8 +123,16 @@ const HomePage = () => {
                     <div className='booking-header'>
                         <h2>Book Your Flight</h2>
                         <div className='trip-options'>
-                            <button className='round-trip'>Round trip</button>
-                            <button className='one-way'>One way</button>
+                            <button 
+                                className={`round-trip ${tripType === 'round-trip' ? 'active' : ''}`}
+                                onClick={() => setTripType('round-trip')}>
+                                Round trip
+                            </button>
+                            <button 
+                                className={`one-way ${tripType === 'one-way' ? 'active' : ''}`}
+                                onClick={() => setTripType('one-way')}>
+                                One way
+                            </button>
                         </div>
                     </div>
 
@@ -102,25 +141,29 @@ const HomePage = () => {
                             type='text' 
                             placeholder='City'
                             value={searchParams.city}
-                            onChange={(e) => setSearchParams({ ...searchParams, city: e.target.value })}
+                            onChange={(e) => setSearchParams({ ...searchParams, city: e.target.value })} 
                         />
                         <input 
-                            type="text" 
+                            type='text' 
                             placeholder='To'
                             value={searchParams.to}
                             onChange={(e) => setSearchParams({ ...searchParams, to: e.target.value })} 
                         />
+                        
                         <input 
-                            type="date"
+                            type='date' 
                             value={searchParams.departureDate}
                             onChange={(e) => setSearchParams({ ...searchParams, departureDate: e.target.value })} 
                         />
-                        <input 
-                            type="date"
-                            value={searchParams.returnDate}
-                            onChange={(e) => setSearchParams({ ...searchParams, returnDate: e.target.value })} 
-                        />
+                        {tripType === 'round-trip' && (
+                            <input 
+                                type='date' 
+                                value={searchParams.returnDate}
+                                onChange={(e) => setSearchParams({ ...searchParams, returnDate: e.target.value })} 
+                            />
+                        )}
                     </div>
+
                     <button className='search-button' onClick={handleSearch}>Show flights</button>
 
                     <div className='flight-info'>
@@ -128,11 +171,11 @@ const HomePage = () => {
                             {flights.length > 0 ? (
                                 flights.map((flight, index) => (
                                     <div className='flight-card' key={index}>
-                                        <h3>{flight.route.destinations[0]}</h3> {/* İlk varış noktası */}
-                                        <p>Departure: {new Date(flight.scheduleDateTime).toLocaleString()}</p> {/* Tarih ve saat */}
-                                        <p>Flight Number: {flight.flightName}</p> {/* Uçuş numarası */}
-                                        <p>Airline: {flight.prefixIATA}</p> {/* Havayolu kodu */}
-                                        <p>Estimated Arrival: {new Date(flight.estimatedLandingTime).toLocaleString()}</p> {/* Tahmini varış zamanı */}
+                                        <h3>{flight.route.destinations[0]}</h3>
+                                        <p>Departure: {new Date(flight.scheduleDateTime).toLocaleString()}</p>
+                                        <p>Flight Number: {flight.flightName}</p>
+                                        <p>Airline: {flight.prefixIATA}</p>
+                                        <p>Estimated Arrival: {new Date(flight.estimatedLandingTime).toLocaleString()}</p>
                                         <button className='book-button' onClick={() => handleSaveFlight(flight)}>Book Flight</button>
                                     </div>
                                 ))
@@ -163,3 +206,4 @@ const HomePage = () => {
 }
 
 export default HomePage;
+
