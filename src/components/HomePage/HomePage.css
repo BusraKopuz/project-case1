@@ -23,15 +23,41 @@ body {
     align-items: center;
 }
 
-.logo{
-    font-size: 24px;
+.logo {
+    display: flex;
+    align-items: center;
+    color: black; 
     font-weight: bold;
 }
 
-.nav span {
-    margin-left: 20px;
-    color: white;
-    cursor: pointer;
+.icon-container {
+    background-color: #491289; 
+    border-radius: 50%; 
+    padding: 10px; 
+    margin-right: 8px; 
+}
+
+.logo-icon {
+    color: white; 
+    font-size: 20px; 
+}
+
+.nav {
+    display: flex;
+    align-items: center; 
+    gap: 20px; 
+}
+
+.user-info {
+    display: flex;
+    align-items: center; 
+}
+
+.user-image {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    margin-left: 8px; 
 }
 
 .main-content{
@@ -99,8 +125,8 @@ body {
 
 .flight-search {
     display: flex;
-    justify-content: space-between;
-    gap: 10px; /* Inputlar arasındaki açıklık */
+    justify-content: space-between; 
+    gap: 10px; 
     width: 100%;
 }
 
@@ -109,28 +135,28 @@ body {
     font-size: 14px;
     border: 1px solid #ccc;
     outline: none;
-    flex: 1; /* Tüm inputlar eşit genişlikte olacak */
+    flex: 1; 
     box-sizing: border-box;
     border-radius: 4px;
     transition: border-color 0.3s ease;
 }
 
-/* İlk inputun (city) sol köşeleri oval */
+
 .flight-search input:first-child {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
 
-/* Son inputun (return date veya departure date) sağ köşeleri oval */
+
 .flight-search input:last-child {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
 
-/* Hover ve Focus durumları */
+
 .flight-search input:hover, 
 .flight-search input:focus {
-    border-color: #491289; /* Hover/focus durumunda kenar rengi */
+    border-color: #491289; 
 }
 
 .search-button{
@@ -206,32 +232,30 @@ span {
 }
 
 .aside-section{
-    width: 30%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
+    gap: 15px;
 }
 
-.aside-card{
-    position: relative;
-    margin-bottom: 20px;
+.aside-card {
+    position: relative; 
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: 15px; 
 }
 
-.aside-card img{
-    width: 100%;
-    aspect-ratio: 1 / 1;
+.aside-card img {
+    width: 100%; 
+    height: 200px;
     object-fit: cover;
-    border-radius: 15px;
 }
 
-.aside-card span {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    font-size: 18px;
-    font-weight: bold;
+.text-container {
+    position: absolute; 
+    bottom: 10%; 
     color: white;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+}
+
+.car-icon {
+    margin-right: 5px; 
+    font-size: 18px; 
 }

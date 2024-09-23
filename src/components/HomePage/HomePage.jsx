@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './HomePage.css';
 import LoadingPage from '../LoadingPage/LoadingPage';
+import userImage from '../../assets/image.jpg';
 import carImage from '../../assets/car.jpg';
 import hotelsImage from '../../assets/hotels.jpg';
 import travelImage from '../../assets/travel.jpeg';
@@ -110,18 +111,28 @@ const HomePage = () => {
     return (
         <div className='homepage'>
             <header className='header'>
-                <div className='logo'>PLANE SCAPE</div>
+                <div className='logo'>
+                    <div className='icon-container'>
+                        <i className="fas fa-plane logo-icon"></i>
+                    </div>
+                    <span>PLANE SCAPE</span>
+                </div>
                 <div className='nav'>
                     <span>Deals</span>
                     <span>Discover</span>
-                    <span>Joane Smith</span>
+                    <span className='user-info'>
+                        <img src={userImage} alt="Joane Smith" className='user-image' />
+                        Joane Smith                    
+                    </span>
                 </div>
             </header>
 
             <main className='main-content'>
                 <section className='booking-section'>
                     <div className='booking-header'>
-                        <h2>Book Your Flight</h2>
+                    <h2>
+                        <i className="fas fa-plane"></i> Book Your Flight
+                    </h2>
                         <div className='trip-options'>
                             <button 
                                 className={`round-trip ${tripType === 'round-trip' ? 'active' : ''}`}
@@ -137,33 +148,31 @@ const HomePage = () => {
                     </div>
 
                     <div className='flight-search'>
-                        <input
-                            type='text' 
-                            placeholder='City'
-                            value={searchParams.city}
-                            onChange={(e) => setSearchParams({ ...searchParams, city: e.target.value })} 
-                        />
-                        <input 
-                            type='text' 
-                            placeholder='To'
-                            value={searchParams.to}
-                            onChange={(e) => setSearchParams({ ...searchParams, to: e.target.value })} 
-                        />
-                        
-                        <input 
-                            type='date' 
-                            value={searchParams.departureDate}
-                            onChange={(e) => setSearchParams({ ...searchParams, departureDate: e.target.value })} 
-                        />
-                        {tripType === 'round-trip' && (
+                            <input
+                                type='text' 
+                                placeholder='City'
+                                value={searchParams.city}
+                                onChange={(e) => setSearchParams({ ...searchParams, city: e.target.value })} 
+                            />
+                            <input 
+                                type='text' 
+                                placeholder='To'
+                                value={searchParams.to}
+                                onChange={(e) => setSearchParams({ ...searchParams, to: e.target.value })} 
+                            />
                             <input 
                                 type='date' 
-                                value={searchParams.returnDate}
-                                onChange={(e) => setSearchParams({ ...searchParams, returnDate: e.target.value })} 
+                                value={searchParams.departureDate}
+                                onChange={(e) => setSearchParams({ ...searchParams, departureDate: e.target.value })} 
                             />
-                        )}
+                            {tripType === 'round-trip' && (
+                                <input 
+                                    type='date' 
+                                    value={searchParams.returnDate}
+                                    onChange={(e) => setSearchParams({ ...searchParams, returnDate: e.target.value })} 
+                                />
+                            )}                       
                     </div>
-
                     <button className='search-button' onClick={handleSearch}>Show flights</button>
 
                     <div className='flight-info'>
@@ -189,15 +198,25 @@ const HomePage = () => {
                 <aside className='aside-section'>
                     <div className='aside-card'>
                         <img src={carImage} alt="Car Rentals" />
-                        <span>Car Rentals</span>
+                        <div className='text-container'>
+                            <i className="fas fa-car car-icon"></i> 
+                            <span>Car Rentals</span>
+                        </div>
                     </div>
+
                     <div className='aside-card'>
                         <img src={hotelsImage} alt="Hotel" />
-                        <span>Hotels</span>
+                        <div className='text-container'>
+                            <i className="fas fa-bed hotel-icon"></i> 
+                            <span>Hotels</span>
+                        </div>
                     </div>
                     <div className='aside-card'>
                         <img src={travelImage} alt="Travel" />
-                        <span>Travel Packages</span>
+                        <div className='text-container'>
+                            <i className="fas fa-umbrella-beach travel-icon"></i>
+                            <span>Travel Packages</span>
+                        </div>
                     </div>
                 </aside>
             </main>
