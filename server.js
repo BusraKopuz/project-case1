@@ -24,6 +24,6 @@ app.get('/api/flights', async (req, res) => {
 });
 
 // 3000 numaralı portta dinleme yapıyoruz
-app.listen(3000, () => {
-  console.log('Server is running on port 3000'); 
+app.listen(3001, () => {
+  console.log('Server is running on port 3000');
 });

@@ -7,11 +7,11 @@ import travelImage from '../../assets/TravelPackages.webp';
 import './HomePage.css';
 import FlightTicketCard from '../../components/FlightTicketCard/FlightTicketCard';
 
-
 const HomePage = () => {
-    const [flights, setFlights] = useState([]);
+
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
+    const [savedFlight, setSavedFlight] = useState(null);
     const [tripType, setTripType] = useState('round-trip');
     const [searchParams, setSearchParams] = useState({
         city: '',
@@ -19,8 +19,6 @@ const HomePage = () => {
         departureDate: '',
         returnDate: '',
     });
-
-    
 
     const fetchFlights = async () => {
         try {
@@ -49,9 +47,9 @@ const HomePage = () => {
         setData(filteredFlights);
     };
 
-    const [savedFlight, setSavedFlight] = useState(null);
     const handleSaveFlight = (flight) => {
         setSavedFlight(flight);
+        localStorage.setItem('saveFlight', JSON.stringify(flight));
         console.log('Uçuş kaydedildi:', flight);
     }
 
@@ -73,7 +71,7 @@ const HomePage = () => {
                     </span>
                     <span className='user-info'>
                         <img src={userImage} alt="Joane Smith" className='user-image' />
-                        Joane Smith                    
+                        Joane Smith
                     </span>
                 </div>
             </header>
@@ -85,12 +83,12 @@ const HomePage = () => {
                         <i className="fas fa-plane"></i> Book Your Flight
                     </h2>
                         <div className='trip-options'>
-                            <button 
+                            <button
                                 className={`round-trip ${tripType === 'round-trip' ? 'active' : ''}`}
                                 onClick={() => setTripType('round-trip')}>
                                 Round trip
                             </button>
-                            <button 
+                            <button
                                 className={`one-way ${tripType === 'one-way' ? 'active' : ''}`}
                                 onClick={() => setTripType('one-way')}>
                                 One way
@@ -100,37 +98,37 @@ const HomePage = () => {
 
                     <div className='flight-search'>
                             <input
-                                type='text' 
+                                type='text'
                                 placeholder='City'
                                 value={searchParams.city}
-                                onChange={(e) => setSearchParams({ ...searchParams, city: e.target.value })} 
+                                onChange={(e) => setSearchParams({ ...searchParams, city: e.target.value })}
                             />
-                            <input 
-                                type='text' 
+                            <input
+                                type='text'
                                 placeholder='To'
                                 value={searchParams.to}
-                                onChange={(e) => setSearchParams({ ...searchParams, to: e.target.value })} 
+                                onChange={(e) => setSearchParams({ ...searchParams, to: e.target.value })}
                             />
-                             
-                            <input 
-                                type='date' 
+
+                            <input
+                                type='date'
                                 value={searchParams.departureDate}
-                                onChange={(e) => setSearchParams({ ...searchParams, departureDate: e.target.value })} 
+                                onChange={(e) => setSearchParams({ ...searchParams, departureDate: e.target.value })}
                             />
-                            
-                            
+
+
                             {tripType === 'round-trip' && (
-                                
-                                <input 
-                                    type='date' 
+
+                                <input
+                                    type='date'
                                     value={searchParams.returnDate}
-                                    onChange={(e) => setSearchParams({ ...searchParams, returnDate: e.target.value })} 
+                                    onChange={(e) => setSearchParams({ ...searchParams, returnDate: e.target.value })}
                                 />
-                                
-                            )}                     
+
+                            )}
                     </div>
                     <button className='search-button' onClick={handleSearch}>Show flights</button>
-                    
+
                     <div className='result-container'>
                         <FlightTicketCard className="flight-ticket-card" data={data} onSaveFlight={handleSaveFlight} />
 
@@ -200,14 +198,14 @@ const HomePage = () => {
                             </div>
                         </div>
                     </div>
-                    
+
                 </section>
 
                 <aside className='aside-section'>
                     <div className='aside-card'>
                         <img src={carImage} alt="Car Rentals" />
                         <div className='text-container'>
-                            <i className="fas fa-car car-icon"></i> 
+                            <i className="fas fa-car car-icon"></i>
                             <span>Car Rentals</span>
                         </div>
                     </div>
@@ -215,7 +213,7 @@ const HomePage = () => {
                     <div className='aside-card'>
                         <img src={hotelsImage} alt="Hotel" />
                         <div className='text-container'>
-                            <i className="fas fa-bed hotel-icon"></i> 
+                            <i className="fas fa-bed hotel-icon"></i>
                             <span>Hotels</span>
                         </div>
                     </div>

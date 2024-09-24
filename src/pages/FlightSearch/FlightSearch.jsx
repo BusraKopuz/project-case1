@@ -1,33 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './FlightSearch.css';
-import FlightService from '../../services/FlightService'; // FlightService'den uçuş verilerini al
 
-const FlightSearch = ({ searchParams, savedFlights }) => {
+const FlightSearch = () => {
+
   const [loading, setLoading] = useState(false);
-  const [flights, setFlights] = useState([]);
+  const [flights, setFlights] = useState(JSON.parse(localStorage.getItem('saveFlight')));
 
   useEffect(() => {
-    const fetchFlights = async () => {
-      setLoading(true);
-      try {
-        const response = await FlightService.getFlightService();
-        const flightData = response.data.flights || [];
-        
-        // Kaydedilen uçuşları filtrele
-        const filteredFlights = flightData.filter(flight =>
-          savedFlights.some(savedFlight => savedFlight.flightName === flight.flightName)
-        );
-
-        setFlights(filteredFlights); // Filtrelenmiş uçuşları ayarla
-      } catch (error) {
-        console.error('Uçuş verileri alınırken hata oluştu.', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFlights();
-  }, [searchParams, savedFlights]); // searchParams veya savedFlights değiştiğinde tekrar fetch et
+    console.log("flights", flights);
+  }, [])
 
   if (loading) {
     return <div>Loading...</div>; // Yükleniyor durumu
@@ -46,22 +27,20 @@ const FlightSearch = ({ searchParams, savedFlights }) => {
         </div>
       </header>
       <div className='flight-list'>
-        {flights.length > 0 || savedFlights.length > 0 ? (
-          flights.map((flight, index) => ( 
-            <div key={index} className='flight-card'>
-              <div className='flight-info'>
-                <div className='time'>{new Date(flight.scheduleDateTime).toLocaleString()}</div>
-                <div className='airline'>{flight.prefixIATA}</div>
-                <div className='route'>{flight.route.destinations.join(' - ')}</div>
-                <div className='duration'>{flight.duration}</div>
-              </div>
-              <div className='prices'>
-                <div className="price">Main: {flight.main}</div>
-                <div className="price">Comfort: {flight.comfort}</div>
-                <div className="price">Premium: {flight.premium}</div>
-              </div>
-            </div>
-          ))
+        {!!flights ? (
+          <div className='flight-card'>
+          <div className='flight-info'>
+            <div className='time'>{new Date(flights.scheduleDateTime).toLocaleString()}</div>
+            <div className='airline'>{flights.prefixIATA}</div>
+            <div className='route'>{flights.route.destinations.join(' - ')}</div>
+            <div className='duration'>{flights.duration}</div>
+          </div>
+          <div className='prices'>
+            <div className="price">Main: {flights.main}</div>
+            <div className="price">Comfort: {flights.comfort}</div>
+            <div className="price">Premium: {flights.premium}</div>
+          </div>
+        </div>
         ) : (
           <p>Mevcut uçuş yok</p>
         )}
