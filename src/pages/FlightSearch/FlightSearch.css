@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Her şeyin boyut hesaplamasını düzeltir */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.flight-search {
+  width: 100%;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto; /* Ortalamak için */
+  display: block; /* Varsayılan olarak blok element */
+}
+
+.search-header {
+  display: block; /* Blok düzeyde olması için */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.search-header h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.filters {
+  display: block; /* Butonları blok düzeyinde göstermek */
+  margin-bottom: 20px;
+}
+
+.filters button {
+  margin-right: 10px;
+  padding: 10px 15px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background-color: #d8d8d8;
+}
+
+.flight-list {
+  display: block; /* Blok seviyede elemanları alt alta getirmek */
+  width: 100%;
+}
+
+.flight-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.flight-info {
+  flex: 3;
+}
+
+.time {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.airline, .route, .duration {
+  color: #666;
+}
+
+.prices {
+  /* flex: 1;
+  text-align: right; */
+  display: flex; /* Yan yana dizilmesini sağlar */
+  justify-content: flex-start; /* Kartların sola yaslanmasını sağlar (isterseniz sağ yapabilirsiniz) */
+  gap: 10px; /* Kartlar arasındaki boşluk */
+}
+
+.price {
+  /* margin-bottom: 5px; */
+  background-color: #f0f0f0; /* Kartların arka plan rengi */
+  padding: 10px 15px; /* Kartların iç boşluğu */
+  border-radius: 5px; /* Kartların kenarlarının yuvarlanması */
+  min-width: 80px; /* Kartların minimum genişliği */
+  text-align: center; /* Kartların içindeki metni ortalar */
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Hafif bir gölge ile kartları belirginleştirir */
+}

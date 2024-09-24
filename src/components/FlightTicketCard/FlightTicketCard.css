@@ -1,0 +1,128 @@
+/* Flight info container */
+.flight-info {
+    width: 70%; /* Solda daha geniş yer kaplasın */
+}
+
+/* Flight cards container */
+.flight-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Flight card */
+.flight-card {
+    position: relative; /* Bu, içindeki öğelerin konumlandırılmasına izin verir */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px; /* Yükseklik ayarla, gerektiği gibi değiştir */
+    width: 700px;
+    background-color: white;
+  
+}
+
+/* Flight details section */
+.flight-details {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: flex-start; 
+}
+
+
+.flight-details h3 {
+    margin: 0; 
+    padding: 0; 
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+}
+
+.flight-card p {
+    margin: 5px 0;
+    color: black;
+    font-size: 15px;
+}
+
+.flight-duration-info {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    text-align: center; 
+}
+
+.flight-icon {
+    color: #491289; 
+    font-size: 18px; 
+}
+
+.duration {
+    margin: 5px 0 0;
+    font-size: 15px; 
+}
+
+
+/* Price section */
+.price-container {
+    
+    color: #491289;
+    position: absolute;
+    bottom: 20px;  
+    left: 20px;    
+}
+
+.price {
+    color: #491289; /* Yazı rengini mor yap */
+    font-weight: bold; /* Yazıyı kalınlaştır */
+    margin: 0; /* Varsayılan marginleri kaldır */
+    padding: 0; /* Varsayılan paddingleri kaldır */
+}
+
+/* Book button and Estimated Arrival */
+.book-button {
+    position: absolute;
+    bottom: 0px; /* Sağ alt köşeye yerleştir */
+    right: 0px; 
+}
+
+.book-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Sağ tarafa hizalamak için */
+    gap: 5px; /* Buton ve Estimated Arrival arasında boşluk */
+    position: absolute;
+    right: 20px; /* Kartın sağ tarafına yerleştirmek için */
+    bottom: 20px; /* Book butonu ve Estimated Arrival alt hizalanmış olacak */
+}
+
+.estimated-arrival {
+    position: absolute;
+    top: 50%; /* Kartın ortasına yerleştir */
+    left: 90%;
+    transform: translate(-50%, -50%);
+    font-size: 15px;
+}
+
+  
+.book-button:hover {
+    background-color: #5753c9;
+}
+
+/* "Check the details" link */
+.check-details {
+    position: absolute; 
+    bottom: -30px; 
+    left: 10px; 
+}
+
+  
+  .check-details:hover {
+    text-decoration: underline;
+  }

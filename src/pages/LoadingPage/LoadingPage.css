@@ -1,0 +1,28 @@
+.loading-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f6f4f9;
+    text-align: center;
+}
+
+.plane-icon {
+    font-size: 50px; 
+    color: #491289; 
+    position: absolute;
+    top: 50%;
+    left: 0;
+    animation: fly 5s linear infinite; 
+}
+
+/* Uçak animasyonu */
+@keyframes fly {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100vw); 
+    }
+}
